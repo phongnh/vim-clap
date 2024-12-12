@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Available Plugins - Vim-Clap Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../custom.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Vim-Clap Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/liuchengxu/vim-clap/tree/master/docs" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/liuchengxu/vim-clap/edit/master/docs/src/plugins/plugins.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="available-plugins"><a class="header" href="#available-plugins">Available Plugins</a></h1>
+<p>The following plugins may only implement a subset of features of their alternatives.</p>
+<p>TODO: elaborate on plugins' usage.</p>
+<!-- clap-markdown-toc -->
+<ul>
+<li><a href="#colorizer">colorizer</a></li>
+<li><a href="#ctags">ctags</a></li>
+<li><a href="#word-highlighter">word-highlighter</a></li>
+<li><a href="#diagnostics">diagnostics</a></li>
+<li><a href="#git">git</a></li>
+<li><a href="#linter">linter</a></li>
+<li><a href="#lsp">lsp</a></li>
+<li><a href="#markdown">markdown</a></li>
+<li><a href="#syntax">syntax</a></li>
+</ul>
+<!-- /clap-markdown-toc -->
+<h2 id="colorizer"><a class="header" href="#colorizer">colorizer</a></h2>
+<pre><code class="language-toml">[plugin.colorizer]
+enable = true
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Features</th><th style="text-align: left">Alternatives</th></tr></thead><tbody>
+<tr><td style="text-align: left">Highlight color name</td><td style="text-align: left"><a href="https://github.com/chrisbra/colorizer">colorizer</a></br><a href="https://github.com/ap/vim-css-color">vim-css-color</a></td></tr>
+</tbody></table>
+</div>
+<h2 id="ctags"><a class="header" href="#ctags">ctags</a></h2>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Features</th><th style="text-align: left">Alternatives</th></tr></thead><tbody>
+<tr><td style="text-align: left">statusline integration(current symbol)</td><td style="text-align: left"><a href="https://github.com/liuchengxu/vista.vim">vista.vim</a></td></tr>
+</tbody></table>
+</div>
+<h2 id="word-highlighter"><a class="header" href="#word-highlighter">word-highlighter</a></h2>
+<pre><code class="language-toml">[plugin.word-highlighter]
+enable = true
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Features</th><th style="text-align: left">Alternatives</th></tr></thead><tbody>
+<tr><td style="text-align: left">Highlight the word under the cursor</td><td style="text-align: left"><a href="https://github.com/tveskag/nvim-blame-line">nvim-blame-line</a></br><a href="https://github.com/RRethy/vim-illuminate">vim-illuminate</a></br> <a href="https://github.com/itchyny/vim-cursorword">vim-cursorword</a></br><a href="https://github.com/osyo-manga/vim-brightest">vim-brightest</a></td></tr>
+<tr><td style="text-align: left">Highlight the keyword like <code>TODO</code></td><td style="text-align: left"><a href="https://github.com/sakshamgupta05/vim-todo-highlight">vim-todo-highlight</a></td></tr>
+</tbody></table>
+</div>
+<p>By default this plugin utilizes <code>Normal</code> guibg as the primary color. It then lighten this base color for <code>ClapCursorWord</code>
+and darkens it for <code>ClapCursorWordTwins</code>. You can manually adjust them in case the default highlights does not meet your
+expectations.</p>
+<h2 id="diagnostics"><a class="header" href="#diagnostics">diagnostics</a></h2>
+<p>This plugin does not do any substantial work but used to provide an interface to interact with the diagnostics provided by the linter and lsp plugin.</p>
+<h2 id="git"><a class="header" href="#git">git</a></h2>
+<pre><code class="language-toml">[plugin.git]
+enable = true
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Features</th><th style="text-align: left">Alternatives</th></tr></thead><tbody>
+<tr><td style="text-align: left">Show blame info at the end of line</td><td style="text-align: left"><a href="https://github.com/tveskag/nvim-blame-line">nvim-blame-line</a></td></tr>
+<tr><td style="text-align: left">Show git diff in sign column</td><td style="text-align: left"><a href="https://github.com/airblade/vim-gitgutter">vim-gitgutter</a></td></tr>
+<tr><td style="text-align: left">Open the permalink of current line in browser</td><td style="text-align: left"><a href="https://github.com/9seconds/repolink.nvim">repolink.nvim</a></td></tr>
+</tbody></table>
+</div>
+<p>The signs are updated when you save the buffer and are rendered lazily, i.e., the signs are only displayed when they
+are visually in the range of screen.</p>
+<h2 id="linter"><a class="header" href="#linter">linter</a></h2>
+<pre><code class="language-toml">[plugin.linter]
+enable = true
+</code></pre>
+<p>Although <a href="https://github.com/dense-analysis/ale">ALE</a> has been an incredible and feature-rich linter plugin
+that served me well for an extended period, I began to notice a persistent lagging issue over time. There were
+noticeable delays in refreshing the latest diagnostics whenever I made changes to the source file (especially
+the Rust file). This prompted me to develop this linter plugin in Rust and the results have been remarkable.
+The diagnostics update is now considerably faster from what I see on Rust project.</p>
+<p>Currently supported linters:</p>
+<ul>
+<li><code>go</code>: <a href="https://github.com/golang/tools/tree/master/gopls">gopls</a></li>
+<li><code>sh</code>: <a href="https://github.com/koalaman/shellcheck">shellcheck</a></li>
+<li><code>vim</code>: <a href="https://github.com/Vimjas/vint">vint</a></li>
+<li><code>python</code>: <a href="https://github.com/astral-sh/ruff">ruff</a></li>
+<li><code>rust</code>: <a href="https://github.com/rust-lang/cargo">cargo</a> <code>cargo check</code>/<code>cargo clippy</code></li>
+</ul>
+<p>Ensure the required linter executables are installed and can be found in your system before using this plugin.</p>
+<h2 id="lsp"><a class="header" href="#lsp">lsp</a></h2>
+<pre><code class="language-toml">[plugin.lsp]
+enable = true
+</code></pre>
+<p>This plugin aims to implement the language server protocol. It's still pretty experimental and only a handful
+features are supported at present.</p>
+<ul>
+<li>Goto reference/definition/declaration/typeDefinition/implementation/reference</li>
+<li>Open documentSymbols/workspaceSymbols</li>
+</ul>
+<h2 id="markdown"><a class="header" href="#markdown">markdown</a></h2>
+<pre><code class="language-toml">[plugin.markdown]
+enable = true
+</code></pre>
+<ul>
+<li>Features
+<ul>
+<li>Generate/Update/Delete toc</li>
+<li>Open preview in browser</li>
+</ul>
+</li>
+</ul>
+<h2 id="syntax"><a class="header" href="#syntax">syntax</a></h2>
+<pre><code class="language-toml">[plugin.syntax]
+enable = true
+</code></pre>
+<p>This plugin implements the sublime-syntax and tree-sitter highlighting. The sublime-syntax is feature-limited and
+pretty experimental, this plugin primarily focues on the tree-sitter highlighting support.</p>
+<p>Currently tree-sitter supported languages:</p>
+<ul>
+<li>Bash, C, Cpp, Dockerfile, Go, Javascript, Json, Markdown, Python, Rust, Toml, Viml</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../plugins/config.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../plugins/config.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Vim-Clap Documentation</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Vim-Clap Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/liuchengxu/vim-clap/tree/master/docs" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p><a href="https://github.com/liuchengxu/vim-clap/actions?workflow=ci"><img src="https://github.com/liuchengxu/vim-clap/workflows/ci/badge.svg" alt="CI" /></a>
+<a href="https://gitter.im/liuchengxu/vim-clap?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/liuchengxu/vim-clap.svg" alt="Gitter" /></a></p>
+<p>Vim-clap stands as a comprehensive and efficient solution, providing powerful fuzzy pickers and replacements for various established Vim plugins, designed to support both Vim and NeoVim.</p>
+<p align="center">
+  <img width="400px" src="https://user-images.githubusercontent.com/8850248/73323347-24467380-4282-11ea-8dac-5ef5a1ee63bb.gif">
+</p>
+<p><a href="https://github.com/liuchengxu/vim-clap/issues/1">More screenshots</a></p>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<p>Vim-clap was initially written in pure VimScript, but later incorporated a Rust dependency to enhance performance. Presently, the Rust binary <code>maple</code> is a must-have for ensuring smooth and optimal functionality. The principle of Vim-Clap in this regard is to offload all the heavy computation to the Rust backend and make Vim/NeoVim a super lightweight layer focusing on UI.</p>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Blazingly fast thanks to the powerful Rust backend</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Consistent command interface with <a href="https://github.com/clap-rs/clap">clap-rs/clap</a></li>
+<li><input disabled="" type="checkbox" checked=""/>
+Tons of builtin providers</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Support writing new providers in both Vimscript and Rust</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Support <a href="https://github.com/junegunn/fzf#search-syntax">the search syntax borrowed from fzf</a> and more</li>
+</ul>
+<h2 id="caveats"><a class="header" href="#caveats">Caveats</a></h2>
+<ul>
+<li>
+<p>While Vim-clap is intended to be compatible with Windows, comprehensive testing on this platform has not been conducted to the same extent as macOS and Linux (specifically Ubuntu), as the plugin author primarily utilizes these operating systems. Consequently, there may be Windows-specific issues yet to be identified. If you encounter any problems on Windows, please <a href="https://github.com/liuchengxu/vim-clap/issues/new?assignees=&amp;labels=&amp;template=bug_report.md&amp;title=">create an issue</a>, and any assistance in addressing these issues would be highly appreciated.</p>
+</li>
+<li>
+<p>While Vim-Clap strives to offer equal support for both Vim and NeoVim, certain nuances arise from the differing implementation details between the two. For example, the focusability of Vim's <code>popup</code> differs from NeoVim's <code>floating_win</code>.</p>
+</li>
+</ul>
+<h2 id="credit"><a class="header" href="#credit">Credit</a></h2>
+<ul>
+<li>Vim-clap is initially enlightened by <a href="https://github.com/manateelazycat/snails">snails</a>.</li>
+<li>Some providers' idea and code are borrowed from <a href="https://github.com/junegunn/fzf.vim">fzf.vim</a>.</li>
+<li>The built-in fzy python implementation is based on <a href="https://github.com/aslpavel/sweep.py">sweep.py</a>.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<h2 id="requirement"><a class="header" href="#requirement">Requirement</a></h2>
+<ul>
+<li>Vim: <code>:echo has('patch-8.1.2114')</code>.</li>
+<li>NeoVim: <code>:echo has('nvim-0.4.2')</code>.</li>
+</ul>
+<h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
+<h3 id="vim-plug"><a class="header" href="#vim-plug"><a href="https://github.com/junegunn/vim-plug">vim-plug</a></a></h3>
+<pre><code class="language-vim">" Build the Rust binary if `cargo` exists on your system.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+" The bang version will try to download the prebuilt binary if `cargo` does not exist.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
+" `:Clap install-binary[!]` will always try to compile the binary locally.
+" If you do care about the disk used for the compilation, use the way of force download,
+" which will directly download the prebuilt binary even if `cargo` is available.
+Plug 'liuchengxu/vim-clap', { 'do': { -&gt; clap#installer#force_download() } }
+
+" `:Clap install-binary[!]` will run using the terminal feature which is inherently async.
+" If you don't want that and hope to run the hook synchorously:
+Plug 'liuchengxu/vim-clap', { 'do': has('win32') ? 'cargo build --release' : 'make' }
+</code></pre>
+<p>Employing the <code>do</code> hook of the Vim plugin manager typically facilitates the automatic installation of the additional Rust binary, offering a convenient and recommended solution. However, if this process encounters any issues, manual compilation of the Rust dependency is required, as outlined in <a href="guide/./install_rust.html">the subsequent section</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="install-rust-dependency"><a class="header" href="#install-rust-dependency">Install Rust Dependency</a></h1>
+<p>You can download the prebuilt binary from GitHub or compile the binary locally on your own.</p>
+<h3 id="compile-rust-binary-locally"><a class="header" href="#compile-rust-binary-locally">Compile Rust Binary Locally</a></h3>
+<p>Refer to <a href="https://www.rust-lang.org/tools/install">https://www.rust-lang.org/tools/install</a> if you haven't installed Rust on your system.</p>
+<p>Assuming Rust has already been installed on your system, specifically, <code>cargo</code> executable exists, you can have several ways to compile the binary:</p>
+<ul>
+<li>
+<p>Use this helper function <code>:call clap#installer#build_maple()</code> within Vim/NeoVim.</p>
+</li>
+<li>
+<p>Run <code>make</code> under the clap plugin directory (macOS and Linux).</p>
+</li>
+<li>
+<p>Run the <code>cargo</code> command on your own:</p>
+<pre><code class="language-bash">cd path/to/vim-clap
+
+# Compile the release build, you can find the compiled executable at target/release/maple.
+cargo build --release
+</code></pre>
+</li>
+</ul>
+<h3 id="compile-rust-binary-via-docker-linux-only"><a class="header" href="#compile-rust-binary-via-docker-linux-only">Compile Rust binary via Docker (Linux Only)</a></h3>
+<p>If you run into the libssl error when using the prebuilt binary from GitHub release, you can try building a static Rust binary:</p>
+<pre><code class="language-bash">$ cd path/to/vim-clap
+$ docker run --rm -it -v "$(pwd)":/volume clux/muslrust cargo build --profile production --locked
+$ cp target/x86_64-unknown-linux-musl/production/maple bin/maple
+# See if it really works
+$ ./bin/maple version
+</code></pre>
+<h3 id="download-prebuilt-binary"><a class="header" href="#download-prebuilt-binary">Download Prebuilt binary</a></h3>
+<p>The prebuilt binary is available from GitHub release. You can call <code>:call clap#installer#download_binary()</code> in Vim/NeoVim, or do it manually as follows.</p>
+<h4 id="quick-downloader"><a class="header" href="#quick-downloader">Quick Downloader</a></h4>
+<p>The scripts to download the prebuilt binary quickly are provided out of the box. The downloaded executable can be found at <code>bin/maple</code> on success.</p>
+<ul>
+<li>Unix: <code>$ bash install.sh</code></li>
+<li>Windows: Run <code>install.ps1</code> in the powershell.</li>
+</ul>
+<h4 id="download-prebuilt-binary-by-hand"><a class="header" href="#download-prebuilt-binary-by-hand">Download Prebuilt Binary By Hand</a></h4>
+<ol>
+<li>Download the binary from the latest release <a href="https://github.com/liuchengxu/vim-clap/releases">https://github.com/liuchengxu/vim-clap/releases</a> according to your system.</li>
+<li>Rename the downloaded binary to:
+<ul>
+<li>Unix: <code>maple</code></li>
+<li>Windows: <code>maple.exe</code></li>
+</ul>
+</li>
+<li>Move <code>maple</code>/<code>maple.exe</code> to <code>bin</code> directory. Don't forget to assign execute permission to <code>maple</code> via <code>chmod a+x bin/maple</code> if you are using the Unix system.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="clap-providers"><a class="header" href="#clap-providers">Clap Providers</a></h1>
+<!-- clap-markdown-toc -->
+<ul>
+<li><a href="providers/intro.html#builtin-providers">Builtin Providers</a>
+<ul>
+<li><a href="providers/intro.html#global-variables">Global Variables</a></li>
+</ul>
+</li>
+<li><a href="providers/intro.html#how-to-create-your-own-provider">How to Create Your Own Provider</a></li>
+<li><a href="providers/intro.html#disable-auto-completion-plugin-in-clap-input-window">Disable Auto-Completion Plugin in Clap Input Window</a></li>
+</ul>
+<!-- /clap-markdown-toc -->
+<h2 id="builtin-providers"><a class="header" href="#builtin-providers">Builtin Providers</a></h2>
+<p>Additional requirement means the potential extra tool needed for the particular provider besides the Rust binary <a href="providers/../guide/install_rust.html"><code>maple</code></a>.</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Command</th><th style="text-align: left">List</th><th style="text-align: left">Additional Requirement</th></tr></thead><tbody>
+<tr><td style="text-align: left"><code>Clap blines</code></td><td style="text-align: left">Lines in the current buffer</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap buffers</code></td><td style="text-align: left">Open buffers</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap colors</code></td><td style="text-align: left">Colorschemes</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap command</code></td><td style="text-align: left">Command</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap hist:</code> or <code>Clap command_history</code></td><td style="text-align: left">Command history</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap hist/</code> or <code>Clap search_history</code></td><td style="text-align: left">Search history</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap filetypes</code></td><td style="text-align: left">File types</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap help_tags</code></td><td style="text-align: left">Help tags</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap jumps</code></td><td style="text-align: left">Jumps</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap lines</code></td><td style="text-align: left">Lines in the loaded buffers</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap marks</code></td><td style="text-align: left">Marks</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap maps</code></td><td style="text-align: left">Maps</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap quickfix</code></td><td style="text-align: left">Entries of the quickfix list</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap loclist</code></td><td style="text-align: left">Entries of the location list</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap registers</code></td><td style="text-align: left">Registers</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap yanks</code></td><td style="text-align: left">Yank stack of the current vim session</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap history</code></td><td style="text-align: left">Open buffers and <code>v:oldfiles</code></td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap windows</code></td><td style="text-align: left">Windows</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap providers</code></td><td style="text-align: left">List the vim-clap providers</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap bcommits</code></td><td style="text-align: left">Git commits for the current buffer</td><td style="text-align: left"><strong><a href="https://github.com/git/git">git</a></strong></td></tr>
+<tr><td style="text-align: left"><code>Clap commits</code></td><td style="text-align: left">Git commits</td><td style="text-align: left"><strong><a href="https://github.com/git/git">git</a></strong></td></tr>
+<tr><td style="text-align: left"><code>Clap gfiles</code> or <code>Clap git_files</code></td><td style="text-align: left">Files managed by git</td><td style="text-align: left"><strong><a href="https://github.com/git/git">git</a></strong></td></tr>
+<tr><td style="text-align: left"><code>Clap git_diff_files</code></td><td style="text-align: left">Files managed by git and having uncommitted changes</td><td style="text-align: left"><strong><a href="https://github.com/git/git">git</a></strong></td></tr>
+<tr><td style="text-align: left"><em><code>Clap live_grep</code> (<strong>deprecated</strong>)</em></td><td style="text-align: left">Grep using word-regexp matcher</td><td style="text-align: left"><strong><a href="https://github.com/BurntSushi/ripgrep">rg</a></strong></td></tr>
+<tr><td style="text-align: left"><code>Clap dumb_jump</code></td><td style="text-align: left">Definitions/References using regexp with grep fallback</td><td style="text-align: left"><strong><a href="https://github.com/BurntSushi/ripgrep">rg</a></strong> with <code>--pcre2</code></td></tr>
+<tr><td style="text-align: left"><code>Clap files</code></td><td style="text-align: left">Files</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap filer</code></td><td style="text-align: left">Ivy-like file explorer</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap grep</code><strong><sup>+</sup></strong></td><td style="text-align: left">Grep using fuzzy matcher</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap igrep</code></td><td style="text-align: left">A combo of <code>filer</code> and <code>grep</code></td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap tags</code></td><td style="text-align: left">Tags in the current buffer</td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap tagfiles</code></td><td style="text-align: left">Search existing <code>tagfiles</code></td><td style="text-align: left"><em>none</em></td></tr>
+<tr><td style="text-align: left"><code>Clap proj_tags</code></td><td style="text-align: left">Tags in the current project</td><td style="text-align: left"><strong><a href="https://github.com/universal-ctags/ctags">universal-ctags</a></strong> (<code>+json</code>)</td></tr>
+<tr><td style="text-align: left"><code>Clap recent_files</code></td><td style="text-align: left">Persistent ordered history of recent files</td><td style="text-align: left"><em>none</em></td></tr>
+</tbody></table>
+</div>
+<ul>
+<li>The command with a superscript <code>+</code> means that it supports multi-selection via <kbd>Tab</kbd>.</li>
+<li><code>Clap live_grep</code> is deprecated now, <code>Clap grep</code> is recommended as the successor.</li>
+<li><code>:Clap grep</code>
+<ul>
+<li>Use <code>:Clap grep --query=&lt;cword&gt;</code> to grep the word under cursor.</li>
+<li>Use <code>:Clap grep --query=@visual</code> to grep the visual selection.</li>
+<li><code>cwd</code> will be searched by default, specify the extra paths in the end to search multiple directories.
+<ul>
+<li><code>:Clap grep --path ~/.vim/plugged/ale</code> with <code>cwd</code> is <code>~/.vim/plugged/vim-clap</code> will both search vim-clap and ale.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/liuchengxu/vim-clap/pulls">Send a pull request</a> if certain provider is not listed here.</p>
+<h3 id="global-variables"><a class="header" href="#global-variables">Global Variables</a></h3>
+<ul>
+<li>
+<p><code>g:clap_layout</code>: Dict, <code>{ 'width': '67%', 'height': '33%', 'row': '33%', 'col': '17%' }</code> by default. This variable controls the size and position of vim-clap window. By default, the vim-clap window is placed relative to the currently active window. To make it relative to the whole editor modify this variable as shown below:</p>
+<pre><code class="language-vim">let g:clap_layout = { 'relative': 'editor' }
+</code></pre>
+</li>
+<li>
+<p><code>g:clap_open_action</code>: Dict, <code>{ 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }</code>, extra key bindings for opening the selected file in a different way. NOTE: do not define a key binding which is conflicted with the other default bindings of vim-clap, and only <code>ctrl-*</code> is supported for now.</p>
+</li>
+<li>
+<p><code>g:clap_provider_alias</code>: Dict, if you don't want to invoke some clap provider by its id(name), as it's too long or somehow, you can add an alias for that provider.</p>
+<pre><code class="language-vim">" The provider name is `command_history`, with the following alias config,
+" now you can call it via both `:Clap command_history` and `:Clap hist:`.
+let g:clap_provider_alias = {'hist:': 'command_history'}
+</code></pre>
+</li>
+<li>
+<p><code>g:clap_selected_sign</code>: Dict, <code>{ 'text': ' &gt;', 'texthl': "ClapSelectedSign", "linehl": "ClapSelected"}</code>.</p>
+</li>
+<li>
+<p><code>g:clap_current_selection_sign</code>: Dict, <code>{ 'text': '&gt;&gt;', 'texthl': "ClapCurrentSelectionSign", "linehl": "ClapCurrentSelection"}</code>.</p>
+</li>
+<li>
+<p><code>g:clap_no_matches_msg</code>: String, <code>'NO MATCHES FOUND'</code>, message to show when there is no matches found.</p>
+</li>
+<li>
+<p><code>g:clap_popup_input_delay</code>: Number, <code>200ms</code> by default, delay for actually responding to the input, vim only.</p>
+</li>
+<li>
+<p><code>g:clap_disable_run_rooter</code>: Bool, <code>v:false</code>, vim-clap by default will try to run from the project root by changing <code>cwd</code> temporarily. Set it to <code>v:true</code> to run from the origin <code>cwd</code>. The project root here means the git base directory. Create an issue if you want to see more support about the project root.</p>
+</li>
+</ul>
+<p>The option naming convention for provider is <code>g:clap_provider_{provider_id}_{opt}</code>.</p>
+<ul>
+<li>
+<p><code>g:clap_provider_grep_blink</code>: [2, 100] by default, blink 2 times with 100ms timeout when jumping the result. Set it to [0, 0] to disable the blink.</p>
+</li>
+<li>
+<p><code>g:clap_provider_grep_opts</code>: An empty string by default, allows you to enable flags such as <code>'--hidden -g "!.git/"'</code>.</p>
+</li>
+</ul>
+<p>See <code>:help clap-options</code> for more information.</p>
+<h2 id="how-to-create-your-own-provider"><a class="header" href="#how-to-create-your-own-provider">How to Create Your Own Provider</a></h2>
+<pre><code class="language-vim">" `:Clap quick_open` to open some dotfiles quickly.
+" `description` is actually optional, but if you want to show this provider
+" when you call `:Clap`, the `description` is necessary.
+let g:clap_provider_quick_open = {
+      \ 'source': ['~/.vimrc', '~/.spacevim', '~/.bashrc', '~/.tmux.conf'],
+      \ 'sink': 'e',
+      \ 'description': 'Quick open some dotfiles',
+      \ }
+</code></pre>
+<p>Find more examples at <a href="https://github.com/liuchengxu/vim-clap/wiki/Examples">wiki/Examples</a>.</p>
+<p>For complete guide about writing a clap provider please see <a href="providers/PROVIDER.html">PROVIDER.md</a>.</p>
+<h2 id="disable-auto-completion-plugin-in-clap-input-window"><a class="header" href="#disable-auto-completion-plugin-in-clap-input-window">Disable Auto-Completion Plugin in Clap Input Window</a></h2>
+<p>Some of the auto-completion engines need to turn off to prevent bizarre behaviors(#580)</p>
+<p>For nvim-completion, add autocmd to your init.vim:</p>
+<pre><code class="language-vim">autocmd FileType clap_input let g:completion_enable_auto_pop = 0
+</code></pre>
+<p>For nvim-compe:</p>
+<pre><code class="language-vim">autocmd FileType clap_input call compe#setup({ 'enabled': v:false }, 0)
+</code></pre>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<h3 id="project-specific-ignore-config"><a class="header" href="#project-specific-ignore-config">Project-specific ignore config</a></h3>
+<p>Ignore the results from the certain files/folders.</p>
+<pre><code class="language-toml">[provider.project-ignores."~/src/github.com/bitcoin/bitcoin"]
+ignore-file-path-pattern = ["test"]
+ignore-file-name-pattern = ["test"]
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="theme"><a class="header" href="#theme">Theme</a></h1>
+<p>By default vim-clap would use the colors extracted from your current colorscheme, which is not guaranteed to suitable for all the colorschemes. You can try the built-in <code>material_design_dark</code> theme if the default theme does not work well:</p>
+<pre><code class="language-vim">let g:clap_theme = 'material_design_dark'
+</code></pre>
+<p><img src="https://user-images.githubusercontent.com/8850248/74818883-6cfdc380-533a-11ea-81fb-d09d90498c96.png" alt="material_design_dark-theme" /></p>
+<p>You could also set <code>g:clap_theme</code> to be a <code>Dict</code> to specify the palette:</p>
+<pre><code class="language-vim">" Change the CamelCase of related highlight group name to under_score_case.
+let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
+</code></pre>
+<p><code>ClapDisplay</code> and <code>ClapPreview</code> are the most basic highlight groups for the display and preview window, which can be overridden if the provider has its own syntax highlight, then checkout the related <a href="providers/syntax">syntax</a> file for more granular highlights directly.</p>
+<p>If you are keen to explore and even want to write your own clap theme, take <a href="providers/../../../autoload/clap/themes/material_design_dark.vim">autoload/clap/themes/material_design_dark.vim</a> as a reference.</p>
+<p>See <code>:help clap-highlights</code> for more information.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="keybindings"><a class="header" href="#keybindings">Keybindings</a></h1>
+<h2 id="keybindings-1"><a class="header" href="#keybindings-1">Keybindings</a></h2>
+<h3 id="insert-mode"><a class="header" href="#insert-mode">Insert mode</a></h3>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-j</kbd>/<kbd>Down</kbd> or <kbd>Ctrl-k</kbd>/<kbd>Up</kbd> to navigate the result list up and down linewise.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>PageDown</kbd>/<kbd>PageUp</kbd> to scroll the result list down and up.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-a</kbd>/<kbd>Home</kbd> to go to the start of the input.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-e</kbd>/<kbd>End</kbd> to go to the end of the input.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-c</kbd>, <kbd>Ctrl-g</kbd>, <kbd>Ctrl-[</kbd> or <kbd>Esc</kbd>(vim) to exit.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-h</kbd>/<kbd>BS</kbd> to delete previous character.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-d</kbd> to delete next character.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-b</kbd> to move cursor left one character.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-f</kbd> to move cursor right one character.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-n</kbd> for next input in the history.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-p</kbd> for previous input in the history.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Enter</kbd> to select the entry and exit.
+<ul>
+<li>Use <kbd>Enter</kbd> to expand the directory or edit the file for <code>:Clap filer</code>.</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+By default <kbd>Alt-u</kbd> does nothing.
+<ul>
+<li>Use <kbd>Alt-u</kbd> to go up one directory in <code>:Clap filer</code>.</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Tab</kbd> to select multiple entries and open them using the quickfix window.(Need the provider has <code>sink*</code> support)
+<ul>
+<li>Use <kbd>Tab</kbd> to expand the directory for <code>:Clap filer</code>.</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-t</kbd> or <kbd>Ctrl-x</kbd>, <kbd>Ctrl-v</kbd> to open the selected entry in a new tab or a new split.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-u</kbd> to clear inputs.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-l</kbd> to launch the whole provider list panel for invoking another provider at any time.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Shift-Tab</kbd> to invoke the action dialog(vim only).</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Shift-up</kbd> and <kbd>Shift-down</kbd> to scroll the preview.</li>
+</ul>
+<h3 id="neovim-only"><a class="header" href="#neovim-only">NeoVim only</a></h3>
+<h4 id="normal-mode"><a class="header" href="#normal-mode">Normal mode</a></h4>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>j</kbd>/<kbd>Down</kbd> or <kbd>k</kbd>/<kbd>Up</kbd> to navigate the result list up and down linewise.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+By default <kbd>Alt-u</kbd> does nothing.
+<ul>
+<li>Use <kbd>Alt-u</kbd> to go up one directory in <code>:Clap filer</code>.</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-c</kbd>, <kbd>Ctrl-g</kbd> or <kbd>Esc</kbd> to exit.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-d</kbd>/<kbd>Ctrl-u</kbd>/<kbd>PageDown</kbd>/<kbd>PageUp</kbd> to scroll the result list down and up.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-l</kbd> to launch the whole provider list panel for invoking another provider at any time.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-n</kbd> for next input in the history.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Ctrl-p</kbd> for previous input in the history.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Shift-up</kbd> and <kbd>Shift-down</kbd> to scroll the preview.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>gg</kbd> and <kbd>G</kbd> to scroll to the first and last item.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Enter</kbd> to select the entry and exit.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <kbd>Shift-Tab</kbd> to invoke the action dialog.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Actions defined by <code>g:clap_open_action</code>.</li>
+</ul>
+<h4 id="cmdline-mode"><a class="header" href="#cmdline-mode">Cmdline mode</a></h4>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Use <code>:q</code> to exit.</li>
+</ul>
+<p>See <code>:help clap-keybindings</code> for more information. Note that the <a href="https://github.com/liuchengxu/vim-clap/issues/864">keybindings are not consistent</a> due to discrepancies between Vim/Neovim and different providers.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="search-syntax"><a class="header" href="#search-syntax">Search Syntax</a></h1>
+<h2 id="fzf-search-syntax"><a class="header" href="#fzf-search-syntax">Fzf search syntax</a></h2>
+<p>vim-clap adopts most of <a href="https://github.com/junegunn/fzf#search-syntax">fzf search syntax</a>. Note that the OR operator defined by a single bar character is unsupported, but you can achieve that by using multiple exact matches.</p>
+<div class="table-wrapper"><table><thead><tr><th>Token</th><th>Match type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>sbtrkt</code></td><td>fuzzy-match</td><td>Items that match sbtrkt</td></tr>
+<tr><td><code>'wild</code></td><td>exact-match (quoted)</td><td>Items that include wild</td></tr>
+<tr><td><code>^music</code></td><td>prefix-exact-match</td><td>Items that start with music</td></tr>
+<tr><td><code>.mp3$</code></td><td>suffix-exact-match</td><td>Items that end with .mp3</td></tr>
+<tr><td><code>!fire</code></td><td>inverse-exact-match</td><td>Items that do not include fire</td></tr>
+<tr><td><code>!^music</code></td><td>inverse-prefix-exact-match</td><td>Items that do not start with music</td></tr>
+<tr><td><code>!.mp3$</code></td><td>inverse-suffix-exact-match</td><td>Items that do not end with .mp3</td></tr>
+</tbody></table>
+</div>
+<h3 id="extended-search-syntax"><a class="header" href="#extended-search-syntax">Extended search syntax</a></h3>
+<p>Apart from the basic fzf search syntax, more search syntax are supported:</p>
+<div class="table-wrapper"><table><thead><tr><th>Token</th><th>Match type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>"cli</code></td><td>word-match</td><td>Items that match word <code>cli</code> (<code>clippy</code> does not match <code>"cli</code>)</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="clap-plugins"><a class="header" href="#clap-plugins">Clap Plugins</a></h1>
+<blockquote>
+<p>WARN: This is an experimental feature, use at your own risk!</p>
+</blockquote>
+<p>Vim-Clap was originally a mere Vim fuzzy picker plugin, however, the integration of a robust Rust backend unveiled the potential to implement various additional functionalities effortlessly, for enjoyable experimentation and potential performance enhancements.</p>
+<p>Note that the vim-Clap plugins were mainly created for the plugin author's personal uses, thus they may not be feature-complete as their alternatives. Bugs are expected as these plugins are not extensively tested, feel free to use if you are brave enough.</p>
+<p>You must enable the <code>g:clap_plugin_experimental</code> flag in your <code>.vimrc</code> and create a <a href="plugins/./config.html">config file</a> beforehand.</p>
+<pre><code class="language-vim">" Specify this variable to enable the plugin feature.
+let g:clap_plugin_experimental = v:true
+</code></pre>
+<p>All the non-system plugins are disabled by default. To enable the plugins, you need to set <code>enable = true</code> explicitly for the plugins in the config file.</p>
+<pre><code class="language-toml">[plugin.git]
+enable = true
+</code></pre>
+<p>Check out <a href="plugins/./plugins.html">Available Plugins</a> for detailed introduction to the plugins. Try <code>:Clap clap_actions</code> to take a look at the existing actions.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h1>
+<p>User config file is loaded from:</p>
+<ul>
+<li>Linux: <code>~/.config/vimclap/config.toml</code></li>
+<li>macOS: <code>~/Library/Application\ Support/org.vim.Vim-Clap/config.toml</code></li>
+<li>Windows: <code>C:\Users\Alice\AppData\Roaming\Vim\Vim Clap\config\config.toml</code></li>
+</ul>
+<p>The default config is as follows:</p>
+<pre><code class="language-toml">## Log configuration.
+[log]
+# Specify the max log level.
+max-level = "debug"
+# Specify the log target to enable more detailed logging.
+#
+# Particularly useful for the debugging purpose.
+#
+# ```toml
+# [log]
+# log-target = "maple_core::stdio_server=trace,rpc=debug"
+# ```
+log-target = ""
+
+## Winbar configuration.
+[winbar]
+# Whether to enable the winbar.
+enable = false
+# Specify the display style for the file path in winbar.
+file-path-style = "one-segment-per-component"
+
+## Matcher configuration.
+[matcher]
+# Specify how the results are sorted.
+tiebreak = "score,-begin,-end,-length"
+
+[plugin.colorizer]
+# Whether to enable this plugin.
+enable = false
+
+[plugin.word-highlighter]
+# Whether to enable this plugin.
+enable = false
+# Whether to ignore the comment line
+ignore-comment-line = false
+# Disable the plugin when the file matches this pattern.
+ignore-files = "*.toml,*.json,*.yml,*.log,tmp"
+# Specify the keyword highlights.
+#
+# ```toml
+# # The first item is the keyword itself, the next item is the highlight group for the keyword.
+# # By default only TODO is highlighted and it's linked to `Todo` highlight group.
+# keyword-highlight = [ ["TODO", "Todo"] ]
+#
+# # You can extend this list to define more keywords and their corresponding highlight group.
+# keyword-highlight = [ ["TODO", "Todo"], ["FIXME", "Error"] ]
+# ```
+keyword-highlight = [["TODO", "Todo"]]
+# This flag controls whether to only highlight the keywords in the comment line.
+#
+# This flag is set as `true` by default.
+keyword-highlight-comment-line-only = true
+
+[plugin.ctags]
+# Whether to enable this plugin.
+enable = false
+# Disable this plugin if the file size exceeds the max size limit.
+#
+# By default the max file size limit is 4MiB.
+max-file-size = 4194304
+
+[plugin.git]
+# Whether to enable this plugin.
+enable = true
+
+[plugin.linter]
+# Whether to enable this plugin.
+enable = false
+
+[plugin.lsp]
+# Whether to enable this plugin.
+enable = false
+# Whether to include the declaration when invoking `ClapAction lsp.reference`.
+include-declaration = false
+# Specify the list of filetypes for which the lsp plugin will be disabled.
+#
+# If a filetype is included in this list, the Language Server Protocol (LSP) plugin
+# will not be activated for files with that particular type.
+filetype-blocklist = []
+# Specifies custom languages that are not built into vim-clap.
+#
+# This config allows to define a new language or override the default value
+# of the built-in language config. Note that if you are defining a new language,
+# (check out the full list of supported languages by default in `languages.toml`),
+# you need to provide associated language server configurations as well.
+#
+# # Example
+#
+# ```toml
+# [[plugin.lsp.language]]
+# name = "erlang"
+# file-types = ["erlang"]
+# root-markers = ["rebar.config"]
+# language-servers = ["erlang-ls"]
+#
+# [plugin.lsp.language-server.erlang-ls]
+# command = "erlang_ls"
+# ```
+language = []
+
+# Specify language server configurations.
+#
+# # Example
+#
+# ```toml
+# [plugin.lsp.language-server.rust-analyzer]
+# procMacro.enable = false
+# procMacro.attributes.enable = false
+# diagnostics.disabled = [ "unresolved-proc-macro" ]
+# ```
+[plugin.lsp.language-server]
+
+[plugin.markdown]
+# Whether to enable this plugin.
+enable = false
+# Specify the port number for the preview page in browser.
+#
+# A random port will be used each time if not specified.
+preview-port = 0
+
+# Specify the strategy of tree-sitter rendering.
+#
+# The default strategy is to render the entire buffer until the
+# file size exceeds 256 KiB.
+#
+#
+# Possible values:
+# - `visual-lines`: Always render the visual lines only.
+# - `entire-buffer-up-to-limit`: Render the entire buffer until
+# the buffer size exceeds the size limit (in bytes).
+#
+# # Example
+#
+# ```toml
+# [plugin.syntax.render-strategy]
+# strategy = "visual-lines"
+# ```
+[plugin.syntax.render-strategy]
+strategy = "entire-buffer-up-to-limit"
+file-size-limit = 262144
+
+## Provider (fuzzy picker) configuration.
+[provider]
+# Whether to share the input history among providers.
+share-input-history = false
+# Specify the syntax highlight engine for the provider preview.
+#
+# Possible values: `vim`, `sublime-syntax` and `tree-sitter`
+preview-highlight-engine = "vim"
+
+# Ignore configuration per project, with paths specified as
+# absolute path or relative to the home directory.
+[provider.project-ignores]
+
+# Ignore configuration per provider.
+#
+# There are multiple ignore settings, with priorities as follows:
+# `provider_ignores` &gt; `provider_ignores` &gt; `global_ignore`
+[provider.provider-ignores]
+
+# Delay in milliseconds before handling the the user query.
+#
+# When the delay is set not-zero, some intermediate inputs
+# may be dropped if user types too fast.
+#
+# By default the debounce is set to 200ms to all providers.
+#
+# # Example
+#
+# ```toml
+# [provider.debounce]
+# # Set debounce to 100ms for files provider specifically.
+# "files" = 100
+# ```
+[provider.debounce]
+
+## Global ignore configuration.
+[global-ignore]
+# Whether to ignore the comment line when applicable.
+ignore-comments = false
+# Whether to include only results from files tracked by git, if in a git repository.
+git-tracked-only = false
+# Patterns for ignoring files based on their names.
+#
+# For instance, to exclude results from files whose names contain "test" for
+# the dumb_jump provider:
+#
+# ```toml
+# [provider.provider-ignores.dumb_jump]
+# ignore-file-name-pattern = ["test"]
+# ```
+ignore-file-name-pattern = []
+# Patterns for ignoring files based on their paths.
+#
+# For instance, to exclude the results from the folder whose names contain `test`
+# in the project `~/src/github.com/vim/vim`:
+#
+# ```toml
+# [provider.project-ignores."~/src/github.com/vim/vim"]
+# ignore-file-path-pattern = ["test"]
+# ```
+ignore-file-path-pattern = []
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="available-plugins"><a class="header" href="#available-plugins">Available Plugins</a></h1>
+<p>The following plugins may only implement a subset of features of their alternatives.</p>
+<p>TODO: elaborate on plugins' usage.</p>
+<!-- clap-markdown-toc -->
+<ul>
+<li><a href="plugins/plugins.html#colorizer">colorizer</a></li>
+<li><a href="plugins/plugins.html#ctags">ctags</a></li>
+<li><a href="plugins/plugins.html#word-highlighter">word-highlighter</a></li>
+<li><a href="plugins/plugins.html#diagnostics">diagnostics</a></li>
+<li><a href="plugins/plugins.html#git">git</a></li>
+<li><a href="plugins/plugins.html#linter">linter</a></li>
+<li><a href="plugins/plugins.html#lsp">lsp</a></li>
+<li><a href="plugins/plugins.html#markdown">markdown</a></li>
+<li><a href="plugins/plugins.html#syntax">syntax</a></li>
+</ul>
+<!-- /clap-markdown-toc -->
+<h2 id="colorizer"><a class="header" href="#colorizer">colorizer</a></h2>
+<pre><code class="language-toml">[plugin.colorizer]
+enable = true
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Features</th><th style="text-align: left">Alternatives</th></tr></thead><tbody>
+<tr><td style="text-align: left">Highlight color name</td><td style="text-align: left"><a href="https://github.com/chrisbra/colorizer">colorizer</a></br><a href="https://github.com/ap/vim-css-color">vim-css-color</a></td></tr>
+</tbody></table>
+</div>
+<h2 id="ctags"><a class="header" href="#ctags">ctags</a></h2>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Features</th><th style="text-align: left">Alternatives</th></tr></thead><tbody>
+<tr><td style="text-align: left">statusline integration(current symbol)</td><td style="text-align: left"><a href="https://github.com/liuchengxu/vista.vim">vista.vim</a></td></tr>
+</tbody></table>
+</div>
+<h2 id="word-highlighter"><a class="header" href="#word-highlighter">word-highlighter</a></h2>
+<pre><code class="language-toml">[plugin.word-highlighter]
+enable = true
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Features</th><th style="text-align: left">Alternatives</th></tr></thead><tbody>
+<tr><td style="text-align: left">Highlight the word under the cursor</td><td style="text-align: left"><a href="https://github.com/tveskag/nvim-blame-line">nvim-blame-line</a></br><a href="https://github.com/RRethy/vim-illuminate">vim-illuminate</a></br> <a href="https://github.com/itchyny/vim-cursorword">vim-cursorword</a></br><a href="https://github.com/osyo-manga/vim-brightest">vim-brightest</a></td></tr>
+<tr><td style="text-align: left">Highlight the keyword like <code>TODO</code></td><td style="text-align: left"><a href="https://github.com/sakshamgupta05/vim-todo-highlight">vim-todo-highlight</a></td></tr>
+</tbody></table>
+</div>
+<p>By default this plugin utilizes <code>Normal</code> guibg as the primary color. It then lighten this base color for <code>ClapCursorWord</code>
+and darkens it for <code>ClapCursorWordTwins</code>. You can manually adjust them in case the default highlights does not meet your
+expectations.</p>
+<h2 id="diagnostics"><a class="header" href="#diagnostics">diagnostics</a></h2>
+<p>This plugin does not do any substantial work but used to provide an interface to interact with the diagnostics provided by the linter and lsp plugin.</p>
+<h2 id="git"><a class="header" href="#git">git</a></h2>
+<pre><code class="language-toml">[plugin.git]
+enable = true
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Features</th><th style="text-align: left">Alternatives</th></tr></thead><tbody>
+<tr><td style="text-align: left">Show blame info at the end of line</td><td style="text-align: left"><a href="https://github.com/tveskag/nvim-blame-line">nvim-blame-line</a></td></tr>
+<tr><td style="text-align: left">Show git diff in sign column</td><td style="text-align: left"><a href="https://github.com/airblade/vim-gitgutter">vim-gitgutter</a></td></tr>
+<tr><td style="text-align: left">Open the permalink of current line in browser</td><td style="text-align: left"><a href="https://github.com/9seconds/repolink.nvim">repolink.nvim</a></td></tr>
+</tbody></table>
+</div>
+<p>The signs are updated when you save the buffer and are rendered lazily, i.e., the signs are only displayed when they
+are visually in the range of screen.</p>
+<h2 id="linter"><a class="header" href="#linter">linter</a></h2>
+<pre><code class="language-toml">[plugin.linter]
+enable = true
+</code></pre>
+<p>Although <a href="https://github.com/dense-analysis/ale">ALE</a> has been an incredible and feature-rich linter plugin
+that served me well for an extended period, I began to notice a persistent lagging issue over time. There were
+noticeable delays in refreshing the latest diagnostics whenever I made changes to the source file (especially
+the Rust file). This prompted me to develop this linter plugin in Rust and the results have been remarkable.
+The diagnostics update is now considerably faster from what I see on Rust project.</p>
+<p>Currently supported linters:</p>
+<ul>
+<li><code>go</code>: <a href="https://github.com/golang/tools/tree/master/gopls">gopls</a></li>
+<li><code>sh</code>: <a href="https://github.com/koalaman/shellcheck">shellcheck</a></li>
+<li><code>vim</code>: <a href="https://github.com/Vimjas/vint">vint</a></li>
+<li><code>python</code>: <a href="https://github.com/astral-sh/ruff">ruff</a></li>
+<li><code>rust</code>: <a href="https://github.com/rust-lang/cargo">cargo</a> <code>cargo check</code>/<code>cargo clippy</code></li>
+</ul>
+<p>Ensure the required linter executables are installed and can be found in your system before using this plugin.</p>
+<h2 id="lsp"><a class="header" href="#lsp">lsp</a></h2>
+<pre><code class="language-toml">[plugin.lsp]
+enable = true
+</code></pre>
+<p>This plugin aims to implement the language server protocol. It's still pretty experimental and only a handful
+features are supported at present.</p>
+<ul>
+<li>Goto reference/definition/declaration/typeDefinition/implementation/reference</li>
+<li>Open documentSymbols/workspaceSymbols</li>
+</ul>
+<h2 id="markdown"><a class="header" href="#markdown">markdown</a></h2>
+<pre><code class="language-toml">[plugin.markdown]
+enable = true
+</code></pre>
+<ul>
+<li>Features
+<ul>
+<li>Generate/Update/Delete toc</li>
+<li>Open preview in browser</li>
+</ul>
+</li>
+</ul>
+<h2 id="syntax"><a class="header" href="#syntax">syntax</a></h2>
+<pre><code class="language-toml">[plugin.syntax]
+enable = true
+</code></pre>
+<p>This plugin implements the sublime-syntax and tree-sitter highlighting. The sublime-syntax is feature-limited and
+pretty experimental, this plugin primarily focues on the tree-sitter highlighting support.</p>
+<p>Currently tree-sitter supported languages:</p>
+<ul>
+<li>Bash, C, Cpp, Dockerfile, Go, Javascript, Json, Markdown, Python, Rust, Toml, Viml</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
